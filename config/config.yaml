@@ -1,0 +1,56 @@
+# Time Series Analysis Configuration
+data:
+  # Data sources
+  sources:
+    stock_symbols: ["AAPL", "GOOGL", "MSFT", "TSLA", "AMZN"]
+    start_date: "2020-01-01"
+    end_date: "2023-12-31"
+  
+  # Synthetic data generation
+  synthetic:
+    enabled: true
+    n_samples: 1000
+    trend_strength: 0.1
+    seasonality_period: 12
+    noise_level: 0.05
+
+models:
+  # ARIMA parameters
+  arima:
+    order: [5, 1, 2]
+    seasonal_order: [1, 1, 1, 12]
+    auto_arima: true
+  
+  # Prophet parameters
+  prophet:
+    yearly_seasonality: true
+    weekly_seasonality: true
+    daily_seasonality: false
+    seasonality_mode: "multiplicative"
+  
+  # LSTM parameters
+  lstm:
+    sequence_length: 60
+    hidden_units: 50
+    dropout: 0.2
+    epochs: 100
+    batch_size: 32
+
+forecasting:
+  horizon: 30
+  confidence_intervals: [0.8, 0.95]
+  cross_validation:
+    enabled: true
+    n_splits: 5
+    test_size: 0.2
+
+visualization:
+  figure_size: [12, 8]
+  style: "seaborn-v0_8"
+  color_palette: "husl"
+  interactive: true
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/timeseries.log"
